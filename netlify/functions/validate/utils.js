@@ -6,15 +6,28 @@ function isBanned(card) {
 }
 
 function isValidCardLine(line) {
-  const pattern = /\* (\d+) (.*) ([A-Z-]{2,5}) (\d+)/;
+  const pattern = /\* (\d+) (.*) ([A-Z-]{2,6}) (\d+)/;
   const matches = line.match(pattern);
 
   return matches;
 }
 
 function isMonotype(decklist) {
+  console.log(decklist);
   const types = decklist
-    .map((card) => databaseCards[card[3]])
+    .map((card) => {
+      const set = card[3];
+      const number = card[4];
+
+      const setData = databaseCards[set];
+      if (setData) {
+        const cardData = setData[number];
+        console.log(cardData);
+        return cardData;
+      } else {
+        return null;
+      }
+    })
     .filter((card) => card)
     .map((card) => card.types)
     .filter((t) => t);
@@ -34,6 +47,8 @@ function isMonotype(decklist) {
   if (!valid) {
     messages.push("Not a monotype");
   }
+
+  console.log(commonTypes);
 
   return {
     valid,
