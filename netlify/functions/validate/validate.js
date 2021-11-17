@@ -84,6 +84,7 @@ const handler = async (event) => {
           checks.singleton.valid &&
           checks.rulebox.valid &&
           checks.unknown_cards.valid &&
+          checks.banned.valid &&
           checks.legal_sets.valid,
         checks,
       }),
