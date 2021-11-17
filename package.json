@@ -1,0 +1,16 @@
+{
+  "name": "gym-leader-challenge-deck-validator",
+  "version": "1.0.0",
+  "description": "Deck validator for Pokemon TCG Gym Leader Challenge format",
+  "scripts": {
+    "start": "node tooling/cli.js",
+    "build": "node tooling/build.js"
+  },
+  "author": "Juha-Matti Santala <juhamattisantala@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "inquirer": "^8.2.0",
+    "node-fetch": "^2.6.1"
+  }
+}

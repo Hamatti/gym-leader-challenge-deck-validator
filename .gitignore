@@ -1,0 +1,9 @@
+.env
+.DS_Store
+# Local Netlify folder
+.netlify
+
+node_modules/
+
+tooling/data/database.json
+netlify/functions/validate/cards.js
