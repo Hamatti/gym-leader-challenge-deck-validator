@@ -1,14 +1,13 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const fetch = require("node-fetch");
+const pokemon = require("pokemontcgsdk");
+
+pokemon.configure({
+  apiKey: process.env.API_KEY,
+});
 
 const dotenv = require("dotenv");
 dotenv.config();
-
-const API_BASE_URL = `https://api.pokemontcg.io/v2/`;
-const HEADERS = {
-  headers: { "X-Api-Key": process.env.API_KEY },
-};
 
 function getSets() {
   const database = JSON.parse(fs.readFileSync("./tooling/data/database.json"));
@@ -24,15 +23,9 @@ function listSets() {
 }
 
 async function getAllSets() {
-  const response = await fetch(
-    `${API_BASE_URL}sets?q=legalities.expanded:legal`,
-    HEADERS
-  );
+  let sets = await pokemon.set.all({ q: "legalities.expanded:legal" });
 
-  let data = await response.json();
-  data = Object.values(data.data);
-
-  const sets = data
+  sets = sets
     .map((set) => {
       if (!set.ptcgoCode) {
         return null;
@@ -105,16 +98,7 @@ async function download(setCode, { force }) {
     return;
   }
 
-  const response = await fetch(
-    `${API_BASE_URL}/cards?q=set.ptcgoCode:${setCode}`,
-    HEADERS
-  );
-
-  // @TODO:
-  // Add paging support since now we are not getting all the cards
-
-  const json = await response.json();
-  const cards = json.data;
+  const cards = await pokemon.card.all({ q: `set.ptcgoCode:${setCode}` });
 
   const cardDetails = cards.map((card) => {
     const {
