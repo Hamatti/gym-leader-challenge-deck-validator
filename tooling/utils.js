@@ -7,6 +7,7 @@ pokemon.configure({
 });
 
 const dotenv = require("dotenv");
+let banlist = require("../netlify/functions/validate/banlist");
 dotenv.config();
 
 function getSets() {
@@ -159,4 +160,49 @@ async function download(setCode, { force }) {
   fs.writeFileSync("./tooling/data/database.json", JSON.stringify(db));
 }
 
-module.exports = { listSets, downloadSet };
+async function adjustBanlist() {
+  banlist = JSON.parse(fs.readFileSync("./tooling/data/banlist.json", "utf-8"));
+  const { banlistAction } = await inquirer.prompt({
+    name: "banlistAction",
+    type: "list",
+    choices: ["Add", "Remove", "View"],
+    message: "What do you want to do with banlist?",
+  });
+
+  if (banlistAction === "View") {
+    console.log("Current banlist");
+    Object.keys(banlist).forEach((card) => {
+      const [set, number] = card.split(" ");
+      const db = JSON.parse(
+        fs.readFileSync("./tooling/data/database.json", "utf-8")
+      );
+
+      const cardData = db[set][number];
+
+      console.log(`${card} ${cardData.name}`);
+    });
+  } else if (banlistAction === "Add") {
+    const { newBan } = await inquirer.prompt({
+      name: "newBan",
+      type: "string",
+      message: "Which card to add to banlist? (in format [SET_CODE] [NUMBER]",
+    });
+
+    banlist[newBan] = true;
+
+    fs.writeFileSync("./tooling/data/banlist.json", JSON.stringify(banlist));
+  } else if (banlistAction === "Remove") {
+    const { removed } = await inquirer.prompt({
+      name: "removed",
+      type: "list",
+      choices: Object.keys(banlist),
+      message: "Which card is unbanned?",
+    });
+
+    delete banlist[removed];
+
+    fs.writeFileSync("./tooling/data/banlist.json", JSON.stringify(banlist));
+  }
+}
+
+module.exports = { listSets, downloadSet, adjustBanlist };
