@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Leader Challenge Decklist Validator</title>
+
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Gym Leader Challenge Decklist Validator</h1>
+    </header>
+    <nav>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+    <main>
+      <p>
+        This is an early alpha release of a decklist validator for
+        <a href="https://gymleaderchallenge.com/"
+          >Gym Leader Challenge format</a
+        >
+        for Pokemon TCG.
+      </p>
+      <h2>Rules</h2>
+      <p>
+          <ul>
+              <li>Monotype (all Pokemon need to be same type)</li>
+              <li>Singleton (only 1 of each card, excl. basic energy)</li>
+              <li>No rulebox nor ACE SPEC cards</li>
+              <li>Only cards from Black and White and onwards</li>
+              <li>Checks for <a href="https://gymleaderchallenge.com/home/ban-list/">Ban List</a></li>
+          </ul>
+      </p>
+      <h2>How to use</h2>
+      <p>
+          Copy-paste your deck in PTCGO format to the text box below and hit <em>Check legality</em> button.
+      </p>
+      <h2>Decklist</h2>
+      <form>
+        <textarea
+          placeholder="* 1 Pikachu CEC 241"
+          cols="100"
+          rows="20"
+          id="input"
+        ></textarea>
+        <br />
+        <button id="submit-check">Check legality</button>
+      </form>
+
+      <h2>Validator results</h2>
+      <div id="result">
+          <em>Submit a decklist to see results</em>
+      </div>
+
+      <h2>Current known issues</h2>
+      <ul>
+          <li>Promo cards and special sub-collections like Radiant Collections are currently unverified due to inconsistencies between PTCGO and the API.</li>
+      </ul>
+    </main>
+
+    <footer>
+        Built with ❤️ to the Gym Leader Challenge community by <a href="https://hamatti.org">Juhis</a>.
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
