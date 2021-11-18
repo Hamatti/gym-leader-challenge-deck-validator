@@ -47,3 +47,13 @@ to deploy a preview of the application, manually check that it works and then pu
 ```
 netlify deploy --prod
 ```
+
+### Manage ban list
+
+After updates are made to [the format's ban list](https://gymleaderchallenge.com/home/ban-list/), run
+
+```
+npm run start
+```
+
+and select _Adjust banlist_ from the menu. From there, you can add new ones, delete old ones or view the banlist.

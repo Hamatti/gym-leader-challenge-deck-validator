@@ -13,7 +13,6 @@ function isValidCardLine(line) {
 }
 
 function isMonotype(decklist) {
-  console.log(decklist);
   const types = decklist
     .map((card) => {
       const set = card[3];
@@ -47,8 +46,6 @@ function isMonotype(decklist) {
   if (!valid) {
     messages.push("Not a monotype");
   }
-
-  console.log(commonTypes);
 
   return {
     valid,
