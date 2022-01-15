@@ -4,7 +4,8 @@
   "description": "Deck validator for Pokemon TCG Gym Leader Challenge format",
   "scripts": {
     "start": "node tooling/cli.js",
-    "build": "node tooling/build.js"
+    "build": "node tooling/build.js",
+    "dev": "netlify dev"
   },
   "author": "Juha-Matti Santala <juhamattisantala@gmail.com>",
   "license": "MIT",

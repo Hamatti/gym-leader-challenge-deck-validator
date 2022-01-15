@@ -48,6 +48,16 @@ to deploy a preview of the application, manually check that it works and then pu
 netlify deploy --prod
 ```
 
+### Running locally
+
+Since this application uses Netlify's serverless functions, to run it locally, you need to run it with [Netlify CLI](https://docs.netlify.com/cli/get-started/)
+
+```
+netlify dev
+```
+
+which will serve the static files as well as the serverless functions.
+
 ### Manage ban list
 
 After updates are made to [the format's ban list](https://gymleaderchallenge.com/home/ban-list/), run
