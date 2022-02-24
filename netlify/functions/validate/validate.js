@@ -48,6 +48,7 @@ const handler = async (event) => {
 
     decklist.forEach((card) => {
       const [fullLine, qty, name, set, number] = card;
+      console.log(card);
       if (isBanned(`${set} ${number}`)) {
         checks.banned.valid = false;
         checks.banned.messages.push(fullLine);
