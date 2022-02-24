@@ -21,7 +21,6 @@ function isMonotype(decklist) {
       const setData = databaseCards[set];
       if (setData) {
         const cardData = setData[number];
-        console.log(cardData);
         return cardData;
       } else {
         return null;
