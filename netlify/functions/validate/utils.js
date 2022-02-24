@@ -6,7 +6,7 @@ function isBanned(card) {
 }
 
 function isValidCardLine(line) {
-  const pattern = /\* (\d+) (.*) ([A-Z-]{2,6}) (\d+)/;
+  const pattern = /(?:\* )?(\d+) (.*) ([A-Z-]{2,6}) (\d+)/;
   const matches = line.match(pattern);
 
   return matches;
@@ -21,7 +21,6 @@ function isMonotype(decklist) {
       const setData = databaseCards[set];
       if (setData) {
         const cardData = setData[number];
-        console.log(cardData);
         return cardData;
       } else {
         return null;
@@ -66,6 +65,7 @@ function isSingleton(decklist) {
     "Fighting Energy",
     "Lightning Energy",
     "Psychic Energy",
+    "Basic {",
   ];
 
   decklist.forEach(([fullLine, quantity, name, set]) => {
