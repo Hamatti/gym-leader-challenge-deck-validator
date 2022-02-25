@@ -1,14 +1,14 @@
 const fs = require("fs");
 
 // Copy banlist to serverless function
-const data = JSON.parse(
+const banlist = JSON.parse(
   fs.readFileSync("./tooling/data/banlist.json", "utf-8")
 );
-const formattedData = formatDataForModule(data);
+const formattedBanlist = formatDataForModule(banlist);
 
-const template = `module.exports = ${formattedData};`;
+const banTemplate = `module.exports = ${formattedBanlist};`;
 
-fs.writeFileSync("./netlify/functions/validate/banlist.js", template);
+fs.writeFileSync("./netlify/functions/validate/banlist.js", banTemplate);
 
 // Build database for serverless function
 const data = JSON.parse(
