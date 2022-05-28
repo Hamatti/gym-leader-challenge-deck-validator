@@ -120,15 +120,16 @@ async function download(setCode, { force }) {
     let ruleBox = false;
 
     if (
-      subtypes &&
-      (subtypes.includes("EX") ||
-        subtypes.includes("GX") ||
-        subtypes.includes("BREAK") ||
-        subtypes.includes("V") ||
-        subtypes.includes("VMAX") ||
-        subtypes.includes("VSTAR") ||
-        rarity === "Rare ACE" ||
-        name.includes("◇"))
+      (subtypes &&
+        (subtypes.includes("EX") ||
+          subtypes.includes("GX") ||
+          subtypes.includes("BREAK") ||
+          subtypes.includes("V") ||
+          subtypes.includes("VMAX") ||
+          subtypes.includes("VSTAR"))) ||
+      rarity === "Rare ACE" ||
+      rarity === "Radiant Rare" ||
+      name.includes("◇")
     ) {
       ruleBox = true;
     }
