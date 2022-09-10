@@ -62,7 +62,6 @@ async function downloadSet() {
       },
     ]);
     setCode = setCode.setCode;
-    console.log(setCode);
   } else if (setCode === "100") {
     const allAvailableSets = await getAllSets();
     allAvailableSets.forEach(async (set) => {
