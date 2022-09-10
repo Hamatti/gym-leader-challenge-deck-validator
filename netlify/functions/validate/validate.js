@@ -3,6 +3,7 @@ const {
   isMonotype,
   isSingleton,
   isBanned,
+  getSubsettedNumber,
 } = require("./utils.js");
 
 const databaseCards = require("./cards.js");
@@ -47,7 +48,8 @@ const handler = async (event) => {
     checks.singleton = isSingleton(decklist);
 
     decklist.forEach((card) => {
-      const [fullLine, qty, name, set, number] = card;
+      let [fullLine, qty, name, set, number] = card;
+      number = getSubsettedNumber(set, number);
       if (isBanned(`${set} ${number}`)) {
         checks.banned.valid = false;
         checks.banned.messages.push(fullLine);
@@ -63,6 +65,7 @@ const handler = async (event) => {
         return;
       }
       const cardData = setData[number];
+      console.log(cardData);
 
       if (!cardData) {
         checks.unknown_cards.valid = false;
