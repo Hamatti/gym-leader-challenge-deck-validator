@@ -62,6 +62,23 @@ async function downloadSet() {
       },
     ]);
     setCode = setCode.setCode;
+    const setsInDatabase = getSets();
+    if (setsInDatabase.includes(setCode)) {
+      console.log("This set is already downloaded");
+      let { redownload } = await inquirer.prompt([
+        {
+          name: "redownload",
+          type: "confirm",
+          message: "Do you want to redownload?",
+        },
+      ]);
+      if (redownload) {
+        download(setCode, { force: true });
+      }
+    } else {
+      console.log(`Downloading cards for set ${setCode}`);
+      download(setCode, { force: false });
+    }
   } else if (setCode === "100") {
     const allAvailableSets = await getAllSets();
     allAvailableSets.forEach(async (set) => {
