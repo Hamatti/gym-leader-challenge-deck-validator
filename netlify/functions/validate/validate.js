@@ -73,6 +73,14 @@ const handler = async (event) => {
         return;
       }
 
+      if(!cardData.setLegal) {
+        checks.legal_sets.valid = false;
+        checks.legal_sets.messages.push(
+          `${cardData.name} (${cardData.ptcgoCode} ${cardData.number}) is not from a legal set.`
+        );
+        return;
+      }
+
       if (cardData.ruleBox) {
         checks.rulebox.valid = false;
         checks.rulebox.messages.push(fullLine);
