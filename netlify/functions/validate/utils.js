@@ -119,12 +119,12 @@ function getSubsettedNumber(ptcgoCode, number) {
     const subset = subsets[ptcgoCode];
     let { total, prefix, leftPad } = subset;
     if (number <= total) {
-      return number.toString();
+      return number.toString().replace(/^0+/, "");
     }
     let newNumber = number - total;
     return `${prefix}${newNumber.toString().padStart(leftPad, "0")}`;
   } else {
-    return number.toString();
+    return number.toString().replace(/^0+/, "");
   }
 }
 
