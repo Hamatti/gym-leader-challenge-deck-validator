@@ -131,7 +131,11 @@ async function download(setCode, { force }) {
       rarity,
     } = card;
 
-    const setLegal = legalities.expanded === "Legal";
+    // The API keeps list of expanded format ban list by stating it as "Banned" in
+    // legalities and since GLC uses a different ban list, it would make cards show up
+    // as "from non-legal sets" if the latter part of this or is missing.
+    const setLegal =
+      legalities.expanded === "Legal" || legalities.expanded === "Banned";
     const ptcgoCode = set.ptcgoCode;
 
     let ruleBox = false;
