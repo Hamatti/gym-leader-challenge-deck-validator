@@ -116,7 +116,13 @@ async function download(setCode, { force }) {
     return;
   }
 
-  const cards = await pokemon.card.all({ q: `set.ptcgoCode:${setCode}` });
+  let cards;
+  if (setCode === "SVI") {
+    cards = await pokemon.card.all({ q: `set.id:sv1` });
+    cards = cards.map((card) => ({ ...card, ptcgoCode: "SVI" }));
+  } else {
+    cards = await pokemon.card.all({ q: `set.ptcgoCode:${setCode}` });
+  }
 
   const cardDetails = cards.map((card) => {
     const {
@@ -147,7 +153,9 @@ async function download(setCode, { force }) {
           subtypes.includes("BREAK") ||
           subtypes.includes("V") ||
           subtypes.includes("VMAX") ||
-          subtypes.includes("VSTAR"))) ||
+          subtypes.includes("VSTAR") ||
+          subtypes.includes("Tera ex") ||
+          subtypes.includes("ex"))) ||
       rarity === "Rare ACE" ||
       rarity === "Radiant Rare" ||
       name.includes("◇")
