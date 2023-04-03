@@ -128,10 +128,117 @@ function getSubsettedNumber(ptcgoCode, number) {
   }
 }
 
+/**
+ * Pokemon formats, GLC included have a special rule for
+ * Lysandre and Boss's Order cards that you can only have one
+ * in total.
+ */
+function hasOnlyOneLysandre(decklist) {
+  const onlyOneOfthese = [
+    "RCL 154",
+    "RCL 189",
+    "RCL 200",
+    "SHF 58",
+    "BRS 132",
+    "LOR 241",
+    "AOR 78",
+    "FLF 104",
+    "FLF 90",
+  ];
+  let count = 0;
+  const cards = [];
+  decklist.forEach((card) => {
+    let cardString = `${card[3]} ${card[4]}`;
+    if (onlyOneOfthese.includes(cardString)) {
+      count++;
+      cards.push(`${card[2]} ${cardString}`);
+    }
+  });
+
+  if (count > 1) {
+    return {
+      valid: false,
+      messages: [
+        `You can only have one Lysandre/Boss's Orders in your deck. You have: ${cards.join(
+          ", "
+        )}`,
+      ],
+    };
+  } else {
+    return {
+      valid: true,
+      messages: [],
+    };
+  }
+}
+
+/**
+ * Pokemon formats, GLC included have a special rule for
+ * Professor Juniper, Professor Sycamore and Professor's Research cards that
+ * you can only have one in total.
+ */
+function hasOnlyOneResearch(decklist) {
+  const onlyOneOfthese = [
+    "SSH 178",
+    "SSH 201",
+    "SSH 209",
+    "CPA 62",
+    "SHF 60",
+    "CEL 23",
+    "CEL 24",
+    "BRS 147",
+    "PGO 78",
+    "PGO 84",
+    "CRZ 150",
+    "SVI 189",
+    "SVI 190",
+    "SVI 240",
+    "SVI 241",
+    "PR-SW 152",
+    "PR-SW 178",
+    "BLW 101",
+    "DEX 98",
+    "PLF 116",
+    "PLB 84",
+    "XY 122",
+    "PHF 101",
+    "BKP 107",
+    "STS 114",
+  ];
+
+  let count = 0;
+  const cards = [];
+  decklist.forEach((card) => {
+    let cardString = `${card[3]} ${card[4]}`;
+    if (onlyOneOfthese.includes(cardString)) {
+      count++;
+      cards.push(`${card[2]} ${cardString}`);
+    }
+  });
+
+  if (count > 1) {
+    return {
+      valid: false,
+      messages: [
+        `You can only have one Juniper/Sycamore/Professor's Research in your deck. You have: ${cards.join(
+          ", "
+        )}`,
+      ],
+    };
+  } else {
+    return {
+      valid: true,
+      messages: [],
+    };
+  }
+}
+
 module.exports = {
   isBanned,
   isValidCardLine,
   isMonotype,
   isSingleton,
   getSubsettedNumber,
+  hasOnlyOneLysandre,
+  hasOnlyOneResearch,
 };
