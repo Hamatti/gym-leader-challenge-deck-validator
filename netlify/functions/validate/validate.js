@@ -4,6 +4,8 @@ const {
   isSingleton,
   isBanned,
   getSubsettedNumber,
+  hasOnlyOneLysandre,
+  hasOnlyOneResearch,
 } = require("./utils.js");
 
 const databaseCards = require("./cards.js");
@@ -46,6 +48,9 @@ const handler = async (event) => {
 
     checks.monotype = isMonotype(decklist);
     checks.singleton = isSingleton(decklist);
+    checks.research = hasOnlyOneResearch(decklist);
+    checks.lysandre = hasOnlyOneLysandre(decklist);
+    console.log(checks);
 
     decklist.forEach((card) => {
       let [fullLine, qty, name, set, number] = card;
@@ -73,7 +78,7 @@ const handler = async (event) => {
         return;
       }
 
-      if(!cardData.setLegal) {
+      if (!cardData.setLegal) {
         checks.legal_sets.valid = false;
         checks.legal_sets.messages.push(
           `${cardData.name} (${cardData.ptcgoCode} ${cardData.number}) is not from a legal set.`

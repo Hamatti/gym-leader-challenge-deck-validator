@@ -33,6 +33,8 @@ document.querySelector("#submit-check").addEventListener("click", (event) => {
         unknown_cards,
         rulebox,
         legal_sets,
+        lysandre,
+        research,
       } = checks;
       const maybeValid =
         banned.valid &&
@@ -40,7 +42,9 @@ document.querySelector("#submit-check").addEventListener("click", (event) => {
         singleton.valid &&
         !unknown_cards.valid &&
         rulebox.valid &&
-        legal_sets.valid;
+        legal_sets.valid &&
+        lysandre.valid &&
+        research.valid;
 
       let htmlOutput = `<div><h3>${
         valid
@@ -59,6 +63,14 @@ document.querySelector("#submit-check").addEventListener("click", (event) => {
       );
       let ruleboxHTML = craftSubsection(rulebox, "Rulebox");
       let setLegalityHTML = craftSubsection(legal_sets, "Set legality");
+      let onlyOneLysandreHTML = craftSubsection(
+        lysandre,
+        "Only one of Lysandre/Boss's Orders"
+      );
+      let onlyOneResearchHTML = craftSubsection(
+        research,
+        "Only one of Juniper/Sycamore/Professor's Research"
+      );
 
       resultDiv.innerHTML = `
       ${htmlOutput}
@@ -68,6 +80,8 @@ document.querySelector("#submit-check").addEventListener("click", (event) => {
       ${banHTML}
       ${setLegalityHTML}
       ${unknown_cardsHTML}
+      ${onlyOneLysandreHTML}
+      ${onlyOneResearchHTML}
       `;
     });
 });
