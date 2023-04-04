@@ -50,7 +50,6 @@ const handler = async (event) => {
     checks.singleton = isSingleton(decklist);
     checks.research = hasOnlyOneResearch(decklist);
     checks.lysandre = hasOnlyOneLysandre(decklist);
-    console.log(checks);
 
     decklist.forEach((card) => {
       let [fullLine, qty, name, set, number] = card;
@@ -63,11 +62,15 @@ const handler = async (event) => {
       const setData = databaseCards[set];
 
       if (!setData) {
-        checks.legal_sets.valid = false;
-        checks.legal_sets.messages.push(
-          `${set} is either not legal or not yet in the database`
-        );
-        return;
+        // Zekrom or Reshiram from Celebrations classic collection are legal
+        // so we need to skip this step in their case
+        if (!(set === "N/A" && (number === "20" || number === "21"))) {
+          checks.legal_sets.valid = false;
+          checks.legal_sets.messages.push(
+            `${set} is either not legal or not yet in the database`
+          );
+          return;
+        }
       }
       const cardData = setData[number];
       console.log(cardData);

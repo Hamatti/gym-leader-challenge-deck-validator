@@ -6,7 +6,7 @@ function isBanned(card) {
 }
 
 function isValidCardLine(line) {
-  const pattern = /(?:\* )?(\d+) (.*) ([A-Z-]{2,6}) (\d+)/;
+  const pattern = /(?:\* )?(\d+) (.*) ([A-Z-/]{2,6}) (\d+)/;
   const matches = line.match(pattern);
 
   return matches;
