@@ -144,6 +144,10 @@ function hasOnlyOneLysandre(decklist) {
     "AOR 78",
     "FLF 104",
     "FLF 90",
+    "PR-SW 251",
+    "PAL 172",
+    "PAL 248",
+    "PAL 265",
   ];
   let count = 0;
   const cards = [];
