@@ -118,19 +118,22 @@ async function download(setCode, { force }) {
 
   let cards;
   /**
-   * SVI is the first set that's not in PTCGO
-   * so to keep the rest of the code simple,
+   * SVI & PAL are the first two sets that are not
+   * in PTCGO so to keep the rest of the code simple,
    * a hack here.
    */
   if (setCode === "SVI") {
     cards = await pokemon.card.all({ q: `set.id:sv1` });
     cards = cards.map((card) => ({ ...card, ptcgoCode: "SVI" }));
+  } else if (setCode === "PAL") {
+    cards = await pokemon.card.all({ q: `set.id:sv2` });
+    cards = cards.map((card) => ({ ...card, ptcgoCode: "PAL" }));
   } else if (setCode === "CEL") {
-  /**
-   * Both Celebrations and Celebrations: Classic Collection
-   * have the same CEL code in PTCGO. Since Classic Collection
-   * cards are not legal in GLC, we download only the main set
-   */
+    /**
+     * Both Celebrations and Celebrations: Classic Collection
+     * have the same CEL code in PTCGO. Since Classic Collection
+     * cards are not legal in GLC, we download only the main set
+     */
     cards = await pokemon.card.all({ q: `set.id:cel25` });
   } else {
     cards = await pokemon.card.all({ q: `set.ptcgoCode:${setCode}` });
