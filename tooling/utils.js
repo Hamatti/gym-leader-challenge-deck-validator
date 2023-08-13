@@ -28,7 +28,7 @@ async function getAllSets() {
 
   sets = sets
     .map((set) => {
-      if (!set.ptcgoCode) {
+      if (!set.ptcgoCode && !set.series !== "Scarlet & Violet") {
         return null;
       } else {
         return {
@@ -128,6 +128,9 @@ async function download(setCode, { force }) {
   } else if (setCode === "PAL") {
     cards = await pokemon.card.all({ q: `set.id:sv2` });
     cards = cards.map((card) => ({ ...card, ptcgoCode: "PAL" }));
+  } else if (setCode === "OBF") {
+    cards = await pokemon.card.all({ q: `set.id:sv3` });
+    cards = cards.map((card) => ({ ...card, ptcgoCode: "OBF" }));
   } else if (setCode === "CEL") {
     /**
      * Both Celebrations and Celebrations: Classic Collection
