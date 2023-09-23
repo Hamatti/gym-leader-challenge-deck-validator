@@ -131,6 +131,9 @@ async function download(setCode, { force }) {
   } else if (setCode === "OBF") {
     cards = await pokemon.card.all({ q: `set.id:sv3` });
     cards = cards.map((card) => ({ ...card, ptcgoCode: "OBF" }));
+  } else if (setCode === "MEW") {
+    cards = await pokemon.card.all({ q: `set.id:sv3pt5` });
+    cards = cards.map((card) => ({ ...card, ptcgoCode: "MEW" }));
   } else if (setCode === "CEL") {
     /**
      * Both Celebrations and Celebrations: Classic Collection
