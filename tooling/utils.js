@@ -116,31 +116,28 @@ async function download(setCode, { force }) {
     return;
   }
 
-  let cards;
   /**
-   * SVI & PAL are the first two sets that are not
-   * in PTCGO so to keep the rest of the code simple,
-   * a hack here.
+   * For sets that were published only on Pokemon TCG Live,
+   * the API does not contain ptcgoCode attribute so we
+   * need to do the mapping manually.
+   *
+   * Both Celebrations and Celebrations: Classic Collection
+   * have the same CEL code in PTCGO. Since Classic Collection
+   * cards are not legal in GLC, we download only the main set
    */
-  if (setCode === "SVI") {
-    cards = await pokemon.card.all({ q: `set.id:sv1` });
-    cards = cards.map((card) => ({ ...card, ptcgoCode: "SVI" }));
-  } else if (setCode === "PAL") {
-    cards = await pokemon.card.all({ q: `set.id:sv2` });
-    cards = cards.map((card) => ({ ...card, ptcgoCode: "PAL" }));
-  } else if (setCode === "OBF") {
-    cards = await pokemon.card.all({ q: `set.id:sv3` });
-    cards = cards.map((card) => ({ ...card, ptcgoCode: "OBF" }));
-  } else if (setCode === "MEW") {
-    cards = await pokemon.card.all({ q: `set.id:sv3pt5` });
-    cards = cards.map((card) => ({ ...card, ptcgoCode: "MEW" }));
-  } else if (setCode === "CEL") {
-    /**
-     * Both Celebrations and Celebrations: Classic Collection
-     * have the same CEL code in PTCGO. Since Classic Collection
-     * cards are not legal in GLC, we download only the main set
-     */
-    cards = await pokemon.card.all({ q: `set.id:cel25` });
+  const liveCodes = {
+    SVI: "sv1",
+    PAL: "sv2",
+    OBF: "sv3",
+    MEW: "sv3pt5",
+    CEL: "cel25",
+  };
+
+  let cards;
+  if (liveCodes.includes(setCode)) {
+    let setId = liveCodes[setCode];
+    cards = await pokemon.card.all({ q: `set.id:${setId}` });
+    cards = cards.map((card) => ({ ...card, ptcgoCode: setCode }));
   } else {
     cards = await pokemon.card.all({ q: `set.ptcgoCode:${setCode}` });
   }
