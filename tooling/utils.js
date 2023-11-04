@@ -131,10 +131,11 @@ async function download(setCode, { force }) {
     OBF: "sv3",
     MEW: "sv3pt5",
     CEL: "cel25",
+    PAR: "sv4",
   };
 
   let cards;
-  if (liveCodes.includes(setCode)) {
+  if (setCode in liveCodes) {
     let setId = liveCodes[setCode];
     cards = await pokemon.card.all({ q: `set.id:${setId}` });
     cards = cards.map((card) => ({ ...card, ptcgoCode: setCode }));
