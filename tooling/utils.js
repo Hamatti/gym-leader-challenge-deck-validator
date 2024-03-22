@@ -133,7 +133,7 @@ async function download(setCode, { force }) {
     CEL: "cel25",
     PAR: "sv4",
     PAF: "sv4pt5",
-    TEF: "sv5"
+    TEF: "sv5",
   };
 
   let cards;
@@ -177,6 +177,7 @@ async function download(setCode, { force }) {
           subtypes.includes("VSTAR") ||
           subtypes.includes("Tera ex") ||
           subtypes.includes("ex"))) ||
+      subtypes.includes("ACE SPEC") ||
       rarity === "Rare ACE" ||
       rarity === "Radiant Rare" ||
       name.includes("◇")
