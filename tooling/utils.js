@@ -133,6 +133,7 @@ async function download(setCode, { force }) {
     CEL: "cel25",
     PAR: "sv4",
     PAF: "sv4pt5",
+    TEF: "sv5"
   };
 
   let cards;
