@@ -210,6 +210,10 @@ function hasOnlyOneResearch(decklist) {
     "STS 114",
     "PAF 88",
     "PAF 89",
+    "PRE 122",
+    "PRE 123",
+    "PRE 124",
+    "PRE 125",
   ];
 
   let count = 0;
