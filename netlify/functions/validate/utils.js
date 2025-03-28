@@ -214,6 +214,7 @@ function hasOnlyOneResearch(decklist) {
     "PRE 123",
     "PRE 124",
     "PRE 125",
+    "JTG 155",
   ];
 
   let count = 0;
